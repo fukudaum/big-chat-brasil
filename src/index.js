@@ -1,17 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import SendMessage from './components/SendMessage';
+import { createRoot } from 'react-dom/client'; 
+import UserList from './components/UserList';
+import UserDetail from './components/UserDetail';
+import UserEdit from './components/UserEdit';
+import UserCreate from './components/UserCreate';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// Cria uma raiz de renderização no elemento root
+const container = document.getElementById('root');
+const root = createRoot(container);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="/users" element={<UserList/>} />
+        <Route path="/users/:id" element={<UserDetail/>} />
+        <Route path="/users/:id/edit" element={<UserEdit/>} />
+        <Route path="/send-message" element={<SendMessage />} />
+        <Route path="/register" element={<UserCreate />} />
+        <Route path="/" element={<App />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
